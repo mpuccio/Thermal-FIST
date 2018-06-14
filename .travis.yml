@@ -1,0 +1,21 @@
+sudo: requires
+compiler: gcc
+dist: trusty
+
+
+before_install:
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
+
+install:
+  - sudo apt-get install -qq g++-6 cmake qt5-default
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6
+
+script: |
+  set -ex
+  g++ --version
+  cmake --version
+  mkdir build
+  cd build
+  cmake ..
+  make
